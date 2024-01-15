@@ -2,7 +2,6 @@ package org.example.management;
 
 import org.example.model.Student;
 import org.example.model.Subject;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +16,7 @@ public class StudentInfoMangement {
     public StudentInfoMangement() {
         studentList =new HashMap<>();
     }
-    public HashMap<Student,List<Subject>> addStudent(){
+    public void addStudent(){
         System.out.println("수강생 등록을 시작합니다.");
         System.out.println("수강생의 이름을 입력하세요");
         String studentName = sc.nextLine();
@@ -30,7 +29,6 @@ public class StudentInfoMangement {
         subjectInfoManagement = new SubjectInfoManagement();
         List<Subject> subjects = subjectInfoManagement.addSubject();
         studentList.put(student,subjects);
-        return studentList;
     }
     public Student getStudentId(int id) {
         for(Student i : studentList.keySet()){

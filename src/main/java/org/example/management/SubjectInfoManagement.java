@@ -32,7 +32,7 @@ public class SubjectInfoManagement {
                     continue;
                 }
             }
-            if (choiceNum < 1 && choiceNum > 8) {
+            if (choiceNum < 1 || choiceNum > 8) {
                 System.out.println("1번부터 8번까지만 선택 가능합니다.");
             }
             if (!chooseHistory.add(choiceNum)) {

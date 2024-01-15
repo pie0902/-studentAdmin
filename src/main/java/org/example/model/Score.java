@@ -25,6 +25,9 @@ public class Score {
                 this.grade = "D";
             } else if (scoreNum >= 60 && scoreNum < 70) {
                 this.grade = "F";
+            } else if(scoreNum<60){
+                this.grade = "xxx";
+                System.out.println("낙제입니다.");
             }
         } else if (type.equals("선택")) {
             if (scoreNum >= 90 && scoreNum < 100) {
@@ -50,5 +53,10 @@ public class Score {
     }
     public String getGrade(){
         return grade;
+    }
+
+    public void setScoreNum(int scoreNum) {
+        this.scoreNum = scoreNum;
+        setGrade(scoreNum,type);
     }
 }

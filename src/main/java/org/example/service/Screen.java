@@ -6,7 +6,7 @@ import org.example.model.Score;
 import org.example.model.Student;
 import org.example.model.Subject;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -16,18 +16,18 @@ public class Screen {
     Scanner sc = new Scanner(System.in);
     int choiceNum;
     //학생 객체
-    HashMap<Student, List<Subject>> sm;
-    List<Subject> subjectList;
+
+
     Subject subject;
     StudentInfoMangement studentInfoMangement;
     ScoreInfoManagement scoreInfoManagement;
     HashMap<Student, HashMap<Subject, List<Score>>> scoreManagementList;
     //과목 리스트 객체
     public Screen() {
-        sm = new HashMap<>();
         studentInfoMangement = new StudentInfoMangement();
         scoreInfoManagement = new ScoreInfoManagement();
-        subjectList = new ArrayList<>();
+
+
     }
 
     public void startScreen() {
@@ -61,11 +61,13 @@ public class Screen {
     public void studentScoreManger() {
         System.out.println("1.수강생 과목별 점수와 회차 등록");
         System.out.println("2.수강생 과목별 회차 점수 조회");
+        System.out.println("3.수강생 과목별 회차 점수 수정");
         int choiceNum = sc.nextInt();
         sc.nextLine();
         switch (choiceNum) {
             case 1 -> addStudentScore();
             case 2 -> getStudentScore();
+            case 3 -> editStudentScore();
             default -> System.out.println("올바른 번호를 입력해주세요");
         }
 
@@ -83,7 +85,7 @@ public class Screen {
             scoreManagementList = scoreInfoManagement.getScoreManagementList();
             if (student != null) {
                 System.out.println("학생 정보: " + student);
-                subjectList = studentInfoMangement.getSubjectList(student);
+                List<Subject> subjectList = studentInfoMangement.getSubjectList(student);
                 for (Subject i : subjectList) {
                     System.out.println(i);
                 }
@@ -104,7 +106,7 @@ public class Screen {
         System.out.println("조회하실 과목을 입력하세요");
         Student student = studentInfoMangement.getStudentId(choiceId);
         scoreManagementList = scoreInfoManagement.getScoreManagementList();
-        subjectList = studentInfoMangement.getSubjectList(student);
+        List<Subject> subjectList = studentInfoMangement.getSubjectList(student);
         String subjectName = sc.nextLine();
         for(Subject i : subjectList){
             if(i.getName().equals(subjectName)){
@@ -125,5 +127,35 @@ public class Screen {
         System.out.println(subjectName + "과목의 " + num + "회차의 점수는 "+ answer.getScoreNum()+ "점 입니다.");
         System.out.println("등급은 "+ answer.getGrade() + " 입니다.");
     }
-
+    public void editStudentScore(){
+        System.out.println("조회하실 수강생의 id를 입력해주세요");
+        int choiceId = sc.nextInt();
+        sc.nextLine();
+        System.out.println("조회하실 과목을 입력하세요");
+        Student student = studentInfoMangement.getStudentId(choiceId);
+        scoreManagementList = scoreInfoManagement.getScoreManagementList();
+        List<Subject> subjectList = studentInfoMangement.getSubjectList(student);
+        String subjectName = sc.nextLine();
+        for(Subject i : subjectList){
+            if(i.getName().equals(subjectName)){
+                subject = i;
+            }
+        }
+        if(subject == null){
+            System.out.println("해당 과목을 찾을 수 없습니다.");
+        }
+        else{
+            System.out.println(subject + "를 선택하셨습니다.");
+        }
+        HashMap<Subject,List<Score>> subjectScore = scoreInfoManagement.getScoreManagementList().get(student);
+        System.out.println("몇 회차를 조회하시겠습니까?");
+        int num = sc.nextInt();
+        List<Score> scoreList = subjectScore.get(subject);
+        System.out.println("점수를 몇점으로 수정하시겠습니까?");
+        int editScore = sc.nextInt();
+        Score answer = scoreList.get(num-1);
+        answer.setScoreNum(editScore);
+        System.out.println(subjectName + "과목의 " + num + "회차의 점수는 "+ answer.getScoreNum()+ "점으로 수정 되었습니다.");
+        System.out.println("등급은 "+ answer.getGrade() + " 입니다.");
+    }
 }

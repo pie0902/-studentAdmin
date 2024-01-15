@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class ScoreInfoManagement {
     Scanner sc = new Scanner(System.in);
     List<Subject> subjectList;
-
     HashMap<Student, HashMap<Subject, List<Score>>> scoreManagementList;
     private Score score;
     private Subject subject;
@@ -21,7 +20,6 @@ public class ScoreInfoManagement {
 
     public ScoreInfoManagement() {
         scoreManagementList = new HashMap<>();
-
     }
 
     public void addScore(StudentInfoMangement studentInfoMangement) {
